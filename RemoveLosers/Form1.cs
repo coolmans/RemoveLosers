@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,29 +31,56 @@ namespace RemoveLosers
             if (textBox1.Text == "")
             {
                 button1.Enabled = false;
-                textBox1.Text = "дура введи текст )";
+                label1.Text = "Дура введи текст )";
+                byte r2 = 70;
+                byte g2 = 130;
+                byte b2 = 180;
+                while ((r2 <= 135 && g2 <= 206) & (b2 <= 250))
+                {
+                    label1.ForeColor = Color.FromArgb(r2, g2, b2);
+                    r2 = (byte)(r2 + 3);
+                    g2 = (byte)(g2 + 4);
+                    b2 = (byte)(b2 + 4);
+                    await Task.Delay(40);
+                }
+                label1.ForeColor = Color.FromArgb(135, 206, 250);
                 await Task.Delay(2000);
                 textBox1.Text = "";
                 button1.Enabled = true;
-                return;
+                label1.ForeColor = Color.FromArgb(70, 130, 180);
             }
-            if (clipboardCopy == false)
-            { //line = File.ReadAllText(@"C:\Users\admin\Desktop\1.txt", Encoding.Default);
-                line = textBox1.Text; //line = line.Replace("все", "всё").Replace("еще", "ещё").Replace(" если", ", если").Replace(",,", ","); //ха-ха
+            else if (!clipboardCopy)
+            {
+                line = textBox1.Text;
                 line = ReplaceString(line);
-                textBox1.Text = line; button1.Text = "Исправлено";
-                await Task.Delay(2000); button1.Text = "Скопировать исправленный текст";
+                textBox1.Text = line;
+                button1.Text = "Исправлено";
+                await Task.Delay(2000);
+                button1.Text = "Скопировать исправленный текст";
                 clipboardCopy = true;
-                return;
             }
-            if (clipboardCopy == true)
+            else if (clipboardCopy)
             {
                 Clipboard.SetDataObject(line);
                 button1.Text = "Скопировано в буфер обмена";
                 clipboardCopy = false;
-                textBox1.Text = "Начинаем заново";
+                label1.Text = "Начинаем заново";
+                byte r = 70;
+                byte g = 130;
+                byte b = 180;
+                while ((r <= 135 && g <= 206) & (b <= 250))
+                {
+                    label1.ForeColor = Color.FromArgb(r, g, b);
+                    r = (byte)(r + 3);
+                    g = (byte)(g + 4);
+                    b = (byte)(b + 4);
+                    await Task.Delay(40);
+                }
+                label1.ForeColor = Color.FromArgb(135, 206, 250);
                 await Task.Delay(2000);
-                textBox1.Text = ""; button1.Text = "Жмякой сюды"; return;
+                textBox1.Text = "";
+                button1.Text = "Жмякой сюды";
+                label1.ForeColor = Color.FromArgb(70, 130, 180);
             }
         }
     }
